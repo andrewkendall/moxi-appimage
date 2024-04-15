@@ -1,0 +1,18 @@
+# -*- mode: conf-unix; -*-
+[Unit]
+Description = Couchbase Moxi Server
+Documentation = http://docs.couchbase.com
+After = network.target remote-fs.target nss-lookup.target
+
+[Service]
+SyslogIdentifier = moxi
+User = moxi
+Type = forking
+PIDFile=/var/run/moxi-server.pid
+WorkingDirectory = /opt/moxi
+LimitNOFILE = 40960
+LimitMEMLOCK = infinity
+ExecStart = /opt/moxi/bin/moxi -r -d -P /var/run/moxi-server.pid -Z /opt/moxi/etc/moxi.cfg -z /opt/moxi/etc/moxi-cluster.cfg
+
+[Install]
+WantedBy = multi-user.target
